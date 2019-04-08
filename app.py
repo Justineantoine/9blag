@@ -20,10 +20,10 @@ def fctSortDict(value):
 
 @app.route('/')
 def index(users=[u for u in USERS]):
-    usersi = []
+    users_inv = []
     for i in range(1,len(users)+1):
-        usersi.append(users[-i])
-    return render_template('index.html',users=usersi)
+        users_inv.append(users[-i])
+    return render_template('index.html',users=users_inv)
 
 @app.route('/indexapi')
 def indexapi(users=[u for u in USERS]):
@@ -53,8 +53,9 @@ def publish():
     app.logger.debug(users)
     ajout = {'url': url, 'title': titre, 'tags': tags, 'like': 0, 'dislike': 0}
     users.append(ajout)
-    with open('Test.json', 'w', encoding='utf-8') as f:
-        json.dump(users, f, indent=4)
+    
+    with open('data.json', 'w', encoding='utf-8') as f:
+        json.dump({"USERS":users}, f, indent=4)
     return index(users)
     
 

@@ -34,9 +34,9 @@
               <a class="nav-link" href="{{ url_for('indexapi') }}">Tendance le disco (c'est qui Ten ?)</a>
             </li>
           </ul>
-          <form class="form-inline mt-2 mt-md-0" method="get" action="/search/">
-            <input class="form-control mr-sm-2" placeholder="Recherche" aria-label="Chercher" type="text" name="pattern">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Chercher</button>
+          <form class="form search" method="get" action="/search/">
+            <input class="form get" placeholder="Recherche" aria-label="Chercher" type="text" name="pattern">
+            <button class="Search button" type="submit">Chercher</button>
           </form>
         </div>
       </nav>
@@ -44,15 +44,22 @@
 	
     <!-- Begin page content -->
     <main role="main" class="container">
-		<article>
+    	<article>
 			<p class="Publish"> Ajoute toi aussi des photos à 9blag !</p>
-			<form class="form-inline mt-2 mt-md-0" method="get" action="/publish/">
-				<input class="form-control mr-sm-2" placeholder="Titre" aria-label="Titre" type="text" name="titre">
-				<input class="form-control mr-sm-2" placeholder="URL" aria-label="URL" type="text" name="url">
-				<input class="form-control mr-sm-2" placeholder="Tags (à séparer par des virgules" aria-label="Tags" type="text" name="tags">
-				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Publier</button>
+			<form class="form publish" method="get" action="/publish/">
+				<input class="form get" placeholder="Titre" aria-label="Titre" type="text" name="titre">
+				<input class="form get" placeholder="URL" aria-label="URL" type="text" name="url">
+				<input class="form get" placeholder="Tags (à séparer par des virgules" aria-label="Tags" type="text" name="tags">
+				<button class="Publish button" type="submit">Publier</button>
 			</form>
 		</article>
+		<script type="text/javascript">
+			int clicks = 0;
+			function click() {
+				clicks += 1;
+				document.getElementById("clickCounter").innerHTML = clicks;
+			};
+    	</script>
     {% block content %}{% endblock content %}
     </main>
 
