@@ -37,7 +37,7 @@ def search():
     pattern = request.args.get("pattern")
     usrs = [u for u in USERS if pattern.lower() in u.get('tags').lower()]
     app.logger.debug(usrs)
-    return render_template('index.html',pattern=pattern,users=usrs.reverse())
+    return render_template('index.html',pattern=pattern,users=usrs)
 
 '''def deal_with_post():
     form = request.form
