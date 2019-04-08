@@ -35,16 +35,24 @@
             </li>
           </ul>
           <form class="form-inline mt-2 mt-md-0" method="get" action="/search/">
-            <input class="form-control mr-sm-2" placeholder="Search" aria-label="Search" type="text" name="pattern">
-            <input class="form-control mr-sm-2" type="checkbox" name="regexp">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            <input class="form-control mr-sm-2" placeholder="Recherche" aria-label="Chercher" type="text" name="pattern">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Chercher</button>
           </form>
         </div>
       </nav>
     </header>
-
+	
     <!-- Begin page content -->
     <main role="main" class="container">
+		<article>
+			<p class="Publish"> Ajoute toi aussi des photos à 9blag !</p>
+			<form class="form-inline mt-2 mt-md-0" method="get" action="/publish/">
+				<input class="form-control mr-sm-2" placeholder="Titre" aria-label="Titre" type="text" name="titre">
+				<input class="form-control mr-sm-2" placeholder="URL" aria-label="URL" type="text" name="url">
+				<input class="form-control mr-sm-2" placeholder="Tags (à séparer par des virgules" aria-label="Tags" type="text" name="tags">
+				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Publier</button>
+			</form>
+		</article>
     {% block content %}{% endblock content %}
     </main>
 

@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 # coding: utf-8
 
+import json
 from flask import Flask
 from flask import abort, request, make_response
 from flask import render_template, redirect, url_for
 
 from data import USERS
-#from data import USERSi
+
 # Set API dev in an another file
 from api import SITE_API
 
@@ -18,43 +19,45 @@ def fctSortDict(value):
     return value["dislike"]-value["like"]
 
 @app.route('/')
-def index():
-    users = [u for u in USERS]
+def index(users=[u for u in USERS]):
     usersi = []
     for i in range(1,len(users)+1):
         usersi.append(users[-i])
     return render_template('index.html',users=usersi)
 
-#@app.route('/tendance/')
-#def tendance(username=None):
-#    return render_template('index.html',users=sorted(USERS,key=fctSortDict))
-
 @app.route('/indexapi')
-def indexapi():
-    users = [u for u in USERS]
+def indexapi(users=[u for u in USERS]):
     return render_template('indexapi.html',users=sorted(users,key=fctSortDict))
 
 @app.route('/search/', methods=['GET'])
 def search():
     app.logger.debug(request.args)
-    #abort(make_response('Not implemented yet ;)', 501))
     if "pattern" not in request.args:
         return abort(400)
     pattern = request.args.get("pattern")
-    usrs = [u for u in USERS if pattern.lower() in u.get('tags').lower()]
-    app.logger.debug(usrs)
-    return render_template('index.html',pattern=pattern,users=usrs)
+    users = [u for u in USERS if pattern.lower() in u.get('tags').lower()]
+    app.logger.debug(users)
+    return render_template('index.html',pattern=pattern,users=users)
 
-'''def deal_with_post():
-    form = request.form
-    app.logger.debug('Hey')'''
+@app.route('/publish/', methods=['GET'])   
+def publish():
+    app.logger.debug(request.args)
+    if ("url" not in request.args) or ("titre" not in request.args):
+        return abort(400)
+    url = request.args.get("url")
+    titre = request.args.get("titre")
+    tags = []
+    if ("tags" in request.args):
+        tags = request.args.get("tags").split(", ")
+    users = [u for u in USERS]
+    app.logger.debug(users)
+    ajout = {'url': url, 'title': titre, 'tags': tags, 'like': 0, 'dislike': 0}
+    users.append(ajout)
+    with open('Test.json', 'w', encoding='utf-8') as f:
+        json.dump(users, f, indent=4)
+    return index(users)
+    
 
-@app.route('/test', methods=['GET','POST'])
-def test():
-    '''app.logger.debug('Running')
-    app.logger.debug('client'.format(request.method))
-    if request.method == 'POST':
-        return deal_with_post()'''
 
 # Script starts here
 if __name__ == '__main__':
