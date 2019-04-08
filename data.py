@@ -12,16 +12,6 @@ from datetime import date, datetime
 with open('data.json') as js:
     DATA = json.load(js)
     USERS = DATA.get('USERS')
-    FIELDS = DATA.get('FIELDS')
-
-def get_fields(u_id):
-    for field, ids in FIELDS.items():
-        if u_id in ids:
-            yield field
-
-
-for user in USERS:
-    user.update({'fields': [f for f in get_fields(user.get('id'))]})
 
 # Script starts here
 if __name__ == '__main__':

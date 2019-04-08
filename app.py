@@ -13,48 +13,20 @@ app = Flask(__name__)
 # Add the API
 app.register_blueprint(SITE_API)
 
-
-@app.route('/hello_world', methods=['GET','POST'])
-def hello_world():
-    app.logger.debug('Hello world')
-    resp = make_response('Hello, World!',200)
-    resp.headers['X-Something'] = 'A value'
-    resp.headers["Content-Type"] = "text"
-    #resp.headers["Accept-Language"] = "en_US", "en_EN", "fr_FR"
-    resp.headers["Content-Language"] = "en_US"
-    user = {'username': 'Lauren'}
-    render_template('index.html', title='Home', user=user)
-    return resp
+def fctSortDict(value):
+    return value["dislike"]-value["like"]
 
 @app.route('/')
 def index():
-    app.logger.debug('serving root URL /')
-    return render_template('index.html')
+    return render_template('index.html',users=USERS)
 
+#@app.route('/tendance/')
+#def tendance(username=None):
+#    return render_template('index.html',users=sorted(USERS,key=fctSortDict))
 
 @app.route('/indexapi')
 def indexapi():
-    return render_template('indexapi.html')
-
-
-@app.route('/about')
-def about():
-    app.logger.debug('about')
-    return render_template('about.html', page_title="About")
-
-
-@app.route('/help')
-def help():
-    return render_template('help.html')
-
-
-@app.route('/users/')
-@app.route('/users/<username>/')
-def users(username=None):
-    if not username:
-        return render_template('users.html',users=USERS)
-    abort(404)
-    return render_template('users.html',users=USERS)
+    return render_template('indexapi.html',users=sorted(USERS,key=fctSortDict))
 
 @app.route('/search/', methods=['GET'])
 def search():
@@ -63,9 +35,9 @@ def search():
     if "pattern" not in request.args:
         return abort(400)
     pattern = request.args.get("pattern")
-    usrs = [u for u in USERS if pattern.lower() in u.get('name').lower()]
+    usrs = [u for u in USERS if pattern.lower() in u.get('tags').lower()]
     app.logger.debug(usrs)
-    return render_template('users.html',pattern=pattern,users=usrs)
+    return render_template('index.html',pattern=pattern,users=usrs.reverse())
 
 '''def deal_with_post():
     form = request.form
