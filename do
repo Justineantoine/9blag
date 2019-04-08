@@ -1,5 +1,5 @@
 #!/bin/sh
-#set -x
+set -x
 
 ROOT="$(dirname "$(readlink -f "$0")")"
 SCRIPT=$(basename "$0")

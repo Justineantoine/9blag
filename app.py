@@ -26,7 +26,6 @@ def hello_world():
     render_template('index.html', title='Home', user=user)
     return resp
 
-
 @app.route('/')
 def index():
     app.logger.debug('serving root URL /')
