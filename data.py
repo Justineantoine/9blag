@@ -12,6 +12,7 @@ from datetime import date, datetime
 with open('data.json') as js:
     DATA = json.load(js)
     USERS = DATA.get('USERS')
+    #USERSi = USERS.reverse()
 
 # Script starts here
 if __name__ == '__main__':
