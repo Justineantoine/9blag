@@ -6,6 +6,7 @@ from flask import abort, request, make_response
 from flask import render_template, redirect, url_for
 
 from data import USERS
+#from data import USERSi
 # Set API dev in an another file
 from api import SITE_API
 
@@ -18,7 +19,11 @@ def fctSortDict(value):
 
 @app.route('/')
 def index():
-    return render_template('index.html',users=USERS)
+    users = [u for u in USERS]
+    usersi = []
+    for i in range(1,len(users)+1):
+        usersi.append(users[-i])
+    return render_template('index.html',users=usersi)
 
 #@app.route('/tendance/')
 #def tendance(username=None):
@@ -26,7 +31,8 @@ def index():
 
 @app.route('/indexapi')
 def indexapi():
-    return render_template('indexapi.html',users=sorted(USERS,key=fctSortDict))
+    users = [u for u in USERS]
+    return render_template('indexapi.html',users=sorted(users,key=fctSortDict))
 
 @app.route('/search/', methods=['GET'])
 def search():
