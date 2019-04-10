@@ -3,7 +3,7 @@
 from flask import request, abort, current_app
 from flask import Blueprint, jsonify
 
-from data import USERS
+from data import IMAGES
 
 SITE_API = Blueprint('api', __name__,)
 

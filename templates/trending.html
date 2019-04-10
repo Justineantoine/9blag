@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <ul>
+      {% for img in images %}
+      	<article>
+        	<li> <h2>{{ img.title|e }}</h2></li>
+        	<img src= {{img.url}} />
+        	<div class="like/dislike">
+        	{{img.like}} 
+			<form action="/like_t/" method="get">
+				<button name="ID" type="submit" value="{{img.id}}">J'aime</button>
+				
+			</form> 
+			{{img.dislike}}
+			<form action="/dislike_t/" method="get">
+				<button name="ID" type="submit" value="{{img.id}}">J'aime pas</button>
+			</form> 
+			</div>
+		</article>
+      {% endfor %}
+     </ul>
+
+{% endblock %}
+
+<!-- vim: set filetype=html spell spelllang=en: -->
+
